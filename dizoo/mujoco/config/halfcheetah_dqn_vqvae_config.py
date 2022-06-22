@@ -69,11 +69,11 @@ halfcheetah_dqn_default_config = dict(
         priority_type_vqvae='return',
         priority_vqvae_min=0.,
 
-        vavae_pretrain_only=True, # NOTE
-        recompute_latent_action=False, # NOTE: if only pretrain vqvae , i.e. vavae_pretrain_only=True, should set this key to False
+        vqvae_pretrain_only=True, # NOTE
+        recompute_latent_action=False, # NOTE: if only pretrain vqvae , i.e. vqvae_pretrain_only=True, should set this key to False
         
-        # vavae_pretrain_only=False, # NOTE
-        # recompute_latent_action=True, # NOTE: if train vqvae dynamically, i.e. vavae_pretrain_only=False, should set this key to True
+        # vqvae_pretrain_only=False, # NOTE
+        # recompute_latent_action=True, # NOTE: if train vqvae dynamically, i.e. vqvae_pretrain_only=False, should set this key to True
 
         model=dict(
             obs_shape=17,  # related to the environment
@@ -108,8 +108,8 @@ halfcheetah_dqn_default_config = dict(
 
 
             # add noise in original continuous action
-            noise=False,  # NOTE: if vavae_pretrain_only=True
-            # noise=True,  # NOTE: if vavae_pretrain_only=False
+            noise=False,  # NOTE: if vqvae_pretrain_only=True
+            # noise=True,  # NOTE: if vqvae_pretrain_only=False
             noise_sigma=0.1,
             noise_range=dict(
             min=-0.5,

@@ -3,7 +3,11 @@ import os
 module_path = os.path.dirname(__file__)
 
 nstep = 3
-num_actuators=4
+num_actuators=10
+hidden_dim = 256
+vqvae_pretrain_only = True
+recompute_latent_action = not vqvae_pretrain_only 
+noise = not vqvae_pretrain_only
 gym_hybrid_dqn_default_config = dict(
     env=dict(
         collector_env_num=8,
@@ -48,7 +52,7 @@ gym_hybrid_dqn_default_config = dict(
         random_collect_size=int(5e4),
         # random_collect_size=int(1),  # debug
         vqvae_embedding_dim=64,  # ved: D
-        vqvae_hidden_dim=[256],  # vhd
+        vqvae_hidden_dim=[hidden_dim],  # vhd
         # vqvae_hidden_dim=[512],  # vhd
         # vqvae_hidden_dim=[1024],  # vhd
         vq_loss_weight=1,
@@ -66,8 +70,8 @@ gym_hybrid_dqn_default_config = dict(
         priority_vqvae_min=0.2,
         cont_reconst_l1_loss=False,
         cont_reconst_smooth_l1_loss=False,
-        vavae_pretrain_only=True,  # NOTE
-        recompute_latent_action=False,
+        vqvae_pretrain_only=vqvae_pretrain_only,  # NOTE
+        recompute_latent_action=recompute_latent_action,
         categorical_head_for_cont_action=False,  # categorical distribution
         n_atom=51,
         gaussian_head_for_cont_action=False, # gaussian  distribution
@@ -81,10 +85,10 @@ gym_hybrid_dqn_default_config = dict(
             # Whether to use dueling head.
             dueling=True,
         ),
+        warm_up_update=int(1e4),
         learn=dict(
             reconst_loss_stop_value=1e-6, # TODO
             constrain_action=False,  # TODO
-            warm_up_update=int(1e4),
             # warm_up_update=int(1), # debug
 
             rl_vae_update_circle=1,  # train rl 1 iter, vae 1 iter
@@ -107,7 +111,7 @@ gym_hybrid_dqn_default_config = dict(
             grad_clip_value=0.5,
 
             # add noise in original continuous action
-            noise=False, # NOTE
+            noise=noise, # NOTE
             # noise=True,
             noise_sigma=0.1,
             noise_range=dict(
@@ -157,7 +161,7 @@ def train(args):
     # main_config.exp_name = 'data_sliding/dqn_noema_smallnet_k16_upcr20' + '_seed' + f'{args.seed}'+'_3M'
     # main_config.exp_name = 'data_moving/dqn_noema_smallnet_k16_upcr20_vqloss0.1' + '_seed' + f'{args.seed}'+'_3M'
     # main_config.exp_name = 'data_hardmove_n10/dqn_noema_middlenet_k64_noise_history_vhd512' + '_seed' + f'{args.seed}'+'_3M'
-    main_config.exp_name = 'data_hardmove_n4/dqn_noema_middlenet_k64_pretrainonly_vhd256' + '_seed' + f'{args.seed}'+'_3M'
+    main_config.exp_name = f'exp/hardmove_vis/n{num_actuators}_dim_{hidden_dim}/seed_{args.seed}_3M'
 
     serial_pipeline_dqn_vqvae([copy.deepcopy(main_config), copy.deepcopy(create_config)], seed=args.seed,max_env_step=int(3e6))
 

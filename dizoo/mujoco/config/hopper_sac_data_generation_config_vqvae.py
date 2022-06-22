@@ -46,7 +46,7 @@ hopper_sac_data_genearation_default_config = dict(
             save_path_transitions='/home/puyuan/hopper_sac_seed0/expert_data_transitions_1000eps.pkl',
             # load path
             data_type='naive',
-            data_path='/home/puyuan/hopper_sac_seed0/expert_data_transitions_1000eps_lt3500.pkl'
+            data_path='/mnt/lustre/share_data/puyuan/hopper_sac_seed0/expert_data_transitions_1000eps_lt3500.pkl' # '/home/puyuan/hopper_sac_seed0/expert_data_transitions_1000eps_lt3500.pkl'
         ),
         command=dict(),
         eval=dict(),
