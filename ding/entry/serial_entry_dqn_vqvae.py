@@ -125,7 +125,7 @@ def serial_pipeline_dqn_vqvae(
                     "You can modify data collect config, e.g. increasing n_sample, n_episode."
                 )
                 break
-            learner.train(train_data, collector.envstep)
+            # learner.train(train_data, collector.envstep)
 
             if learner.policy.get_attribute('priority'):
                 replay_buffer.update(learner.priority_info)
@@ -162,11 +162,11 @@ def serial_pipeline_dqn_vqvae(
                 # policy.visualize_embedding_table(name=f'iter{iter}_{cfg.env.env_id}_s{cfg.seed}')
                 break
         # Collect data by default config n_sample/n_episode
-        new_data = collector.collect(train_iter=learner.train_iter, policy_kwargs=collect_kwargs)
-        for item in new_data:
-            item['warm_up'] = False
-        replay_buffer.push(new_data, cur_collector_envstep=collector.envstep)
-        replay_buffer_vqvae.push(copy.deepcopy(new_data), cur_collector_envstep=collector.envstep)
+        # new_data = collector.collect(train_iter=learner.train_iter, policy_kwargs=collect_kwargs)
+        # for item in new_data:
+        #     item['warm_up'] = False
+        # replay_buffer.push(new_data, cur_collector_envstep=collector.envstep)
+        # replay_buffer_vqvae.push(copy.deepcopy(new_data), cur_collector_envstep=collector.envstep)
 
         # ====================
         # RL phase
@@ -187,7 +187,7 @@ def serial_pipeline_dqn_vqvae(
                         "You can modify data collect config, e.g. increasing n_sample, n_episode."
                     )
                     break
-                learner.train(train_data, collector.envstep)
+                # learner.train(train_data, collector.envstep)
                 if learner.policy.get_attribute('priority'):
                     replay_buffer.update(learner.priority_info)
         # ====================
@@ -240,7 +240,7 @@ def serial_pipeline_dqn_vqvae(
                             "You can modify data collect config, e.g. increasing n_sample, n_episode."
                         )
                         break
-                    learner.train(train_data, collector.envstep)
+                    # learner.train(train_data, collector.envstep)
                     if learner.policy.get_attribute('priority_vqvae'):
                         replay_buffer_vqvae.update(learner.priority_info)
 

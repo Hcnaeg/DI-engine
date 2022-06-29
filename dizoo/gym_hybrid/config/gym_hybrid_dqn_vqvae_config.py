@@ -10,15 +10,15 @@ recompute_latent_action = not vqvae_pretrain_only
 noise = not vqvae_pretrain_only
 gym_hybrid_dqn_default_config = dict(
     env=dict(
-        collector_env_num=8,
-        evaluator_env_num=8,
+        collector_env_num=1,
+        evaluator_env_num=1,
         # (bool) Scale output action into legal range [-1, 1].
         act_scale=True,
         # env_id='Sliding-v0',
         # env_id='Moving-v0',
         env_id='HardMove-v0',
         num_actuators=num_actuators,  # only for 'HardMove-v0'
-        n_evaluator_episode=8,
+        n_evaluator_episode=1,
         # stop_value=2,
         stop_value=999,
     ),
@@ -27,6 +27,7 @@ gym_hybrid_dqn_default_config = dict(
         # learned_model_path=module_path + '/learned_model_path/ckpt_best.pth.tar',
 
         # Whether to use cuda for network.
+        learned_model_path="/Users/luoweiqing/code/DI-engine/dizoo/gym_hybrid/config/learned_model_path/seed0_ckpt_best.pth.tar",
         cuda=True,
         # Reward's future discount factor, aka. gamma.
         discount_factor=0.99,
